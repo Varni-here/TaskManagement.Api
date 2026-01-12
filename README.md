@@ -1,173 +1,88 @@
-📌 Task Management System — ASP.NET Core + SQL Server
+# 🗂️ **Task Management System**
 
-This is a collaborative task management platform built using ASP.NET Core Web API and MS SQL Server, designed to handle task assignment, project planning, task panels, guest access, attachments, and discussion threads.
+> **Collaborative task planning with task panels, discussions, sharing & attachments — built with ASP.NET Core & SQL Server**
 
-🚀 Features
+---
 
-Project Management
+## 📚 **Table of Contents**
 
-Create and manage projects
+- **Features**
+- **Architecture Overview**
+- **Database Schema**
+- **Tech Stack**
+- **Setup & Installation**
+- **Roadmap**
+- **License**
 
-Define timelines
+---
 
-Track progress
+## 🚀 **Features**
 
-Task Management
+- 🗃 **Project Management**
+- 📌 **Task Assignment & Scheduling**
+- 🎛 **Task Panels (Board / Kanban style)**
+- 👥 **Guest & Sharing Support**
+- 📨 **Invitation System**
+- 💬 **Task Discussions**
+- 📎 **Attachments for Tasks / Projects / Panels**
+- 🕒 **Audit Fields & Soft Delete**
 
-Assign tasks to users
+---
 
-Set start/end dates
+## 🧱 **Architecture Overview**
+**Project → Tasks → Task Panels → Guests → Discussions → Attachments**
 
-Update task status
+Supports both **individual** and **team collaboration**.
 
-Add descriptions & metadata
+---
 
-Task Panels (Boards)
+## 🗄️ **Database Schema Overview**
 
-Group tasks under panels (similar to Kanban boards)
+### 📍 **Main Entities**
 
-Share panels with other users
+| **Table** | **Purpose** |
+|---|---|
+| `UserTable` | Stores users & account info |
+| `ProjectTable` | Stores project details |
+| `Task` | Stores task details |
+| `TaskDiscussion` | Comments / discussion per task |
+| `TaskPanel` | Boards for organizing tasks |
+| `TaskPanelMapping` | Maps tasks to task panels |
+| `GuestsOfTaskPanel` | Panel collaborators |
+| `TaskPanelInvitation` | Invitation workflow for access |
+| `AttachmentTable` | File attachments metadata |
 
-Guests can join/leave
+---
 
-Invitations System
+### 📁 **Attachment Types**
 
-Invite users to collaborate via email
+Supports attachments for:
 
-Track status: Sent, In-Progress, Accepted
+- **Project**
+- **Task**
+- **TaskPanel**
 
-Discussions
+---
 
-Thread-style task discussions
+## 🛠 **Tech Stack**
 
-User mentions & commenting support
+| **Layer** | **Technology** |
+|---|---|
+| Backend | **ASP.NET Core Web API** |
+| Language | **C#** |
+| Database | **SQL Server** |
+| ORM | *(Optional: EF Core if used)* |
+| Auth | *(Planned: JWT)* |
+| UI | *(Planned: Kanban Web UI)* |
 
-Attachments
+---
 
-File uploads for Task / Project / Panel
+## 🔧 **Setup & Installation**
 
-Unified attachment model
-
-Audit Fields
-
-CreatedBy, UpdatedBy, timestamps, soft delete via IsActive
-
-🗃 Database Schema Overview
-Core Tables
-Table	Purpose
-UserTable	Maintains users and credentials
-ProjectTable	Stores project-level details
-Task	Stores tasks under a project
-TaskDiscussion	Discussion threads for tasks
-TaskPanel	Panels to group tasks
-TaskPanelMapping	Maps tasks to panels
-GuestsOfTaskPanel	Guest users for panels
-TaskPanelInvitation	Invitation for panel access
-AttachmentTable	File attachment metadata
-Log (optional)	Activity logging/events
-📦 Entity Highlights
-TaskPanel
-
-Used for grouping & sharing tasks between users.
-
-TaskPanel
-├─ ID
-├─ TaskPanelName
-├─ OwnerID
-├─ CreatedBy / UpdatedBy
-├─ CreatedDate / UpdatedDate
-└─ IsActive
-
-TaskPanelInvitation
-
-Tracks sharing invites.
-
-Status values:
-
-Sent
-
-In-Progress
-
-Accepted
-
-🛠 Tech Stack
-Layer	Tech
-Backend	ASP.NET Core Web API
-Database	SQL Server
-Language	C#
-Auth	(Planned: JWT)
-Deployment	TBD
-🔄 Workflow Example
-
-User creates a Project
-
-User creates Tasks under Project
-
-User groups tasks into a Task Panel
-
-Panel owner invites collaborators
-
-Collaborators join & discuss tasks
-
-Attachments added for context
-
-📈 Possible Use Cases
-
-✔ Team collaboration
-✔ Software project tracking
-✔ Shared Kanban boards
-✔ Research or student task tracking
-✔ Task communication & documentation
-
-🧱 ERD (Entity Relationship Diagram)
-
-(Coming Soon — can auto-generate if you want)
-
-🔧 Setup Instructions
-
-(Adjust these according to your actual project)
-
-Prerequisites
-
-.NET SDK 8+ (or your version)
-
-SQL Server local/remote
-
-Visual Studio / VS Code
-
-Setup
+```bash
 git clone <repo-url>
-cd project-folder
+cd TaskManagement
 dotnet restore
 dotnet build
 dotnet run
 
-
-Configure DB connection in:
-
-appsettings.json
-
-
-Apply migrations / SQL schema creation.
-
-🛣 Future Enhancements (Planned)
-
-JWT Authentication
-
-Role-based permissions
-
-Real-time updates w/ SignalR
-
-Notification system
-
-Kanban UI Web App
-
-Mobile-friendly UI
-
-Activity Log Tracking
-
-Multi-tenant Support
-
-🤝 Contribution
-
-Contributions are welcome — feel free to open issues or submit PRs.
