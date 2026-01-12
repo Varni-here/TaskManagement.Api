@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManagement.Core.Interfaces;
 using TaskManagement.Core.RequestModels.Users;
 using TaskManagement.Core.ResponseModels;
 using TaskManagement.Data.Models;
 
 namespace TaskManagement.Services
 {
-    public class UsersServices
+    public class UsersServices : IUserServices
     {
         private readonly AppDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public UsersServices(AppDbContext context)
+        public UsersServices(AppDbContext context,IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<CoreResponse> RegisterUser(UserDtoModel req)
@@ -50,7 +53,10 @@ namespace TaskManagement.Services
         public async Task<CoreResponse> SendVerificationEmail(EmailVerificationModel req)
         {
             CoreResponse res = new CoreResponse();
-            
+            await _emailService.SendEmailAsync(req.Email, "OTP Code", "<h3>Your OTP is 123456</h3>");
+            res.status = true;
+            res.statusMessage = "Email sent successfully";
+            return res;
         }
     }
 }

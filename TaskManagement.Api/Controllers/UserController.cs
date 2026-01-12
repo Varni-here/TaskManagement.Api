@@ -27,5 +27,14 @@ namespace TaskManagement.Api.Controllers
                 return BadRequest(res);
             return Ok(res);
         }
+
+        [HttpPost("Verify")]
+        public async Task<ActionResult<CoreResponse>> SendVerificationMail(EmailVerificationModel req)
+        {
+            CoreResponse res = new CoreResponse();
+            res = await _userServices.SendVerificationEmail(req);
+            if (res.status == false) return BadRequest(res);
+            return Ok(res);
+        }
     }
 }

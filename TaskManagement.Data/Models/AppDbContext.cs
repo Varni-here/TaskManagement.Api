@@ -19,6 +19,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<ConfigMaster> ConfigMasters { get; set; }
 
+    public virtual DbSet<EmailOtpRecord> EmailOtpRecords { get; set; }
+
     public virtual DbSet<PanelGuest> PanelGuests { get; set; }
 
     public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
@@ -37,7 +39,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<UserExternalLogin> UserExternalLogins { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -93,6 +95,30 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ConfigValue)
                 .IsUnicode(false)
                 .HasColumnName("configValue");
+        });
+
+        modelBuilder.Entity<EmailOtpRecord>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__EmailOtp__3213E83FEDF414AB");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("createdDate");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("isActive");
+            entity.Property(e => e.IsUsed)
+                .HasDefaultValue(false)
+                .HasColumnName("isUsed");
+            entity.Property(e => e.Otp)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("otp");
         });
 
         modelBuilder.Entity<PanelGuest>(entity =>
@@ -390,6 +416,8 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Users__3213E83F955453B5");
+
+            entity.HasIndex(e => e.UserName, "UQ__Users__66DCF95C2D063A4A").IsUnique();
 
             entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164A802183D").IsUnique();
 

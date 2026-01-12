@@ -11,5 +11,6 @@ namespace TaskManagement.Core.Interfaces
     public interface IUserServices
     {
         Task<CoreResponse> RegisterUser(UserDtoModel req);
+        Task<CoreResponse> SendVerificationEmail(EmailVerificationModel req);
     }
 }
