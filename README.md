@@ -80,7 +80,7 @@ Supports attachments for:
 ## 🔧 **Setup & Installation**
 
 ```bash
-git clone <repo-url>
+git clone <https://github.com/Varni-here/TaskManagement.Api.git>
 cd TaskManagement
 dotnet restore
 dotnet build
